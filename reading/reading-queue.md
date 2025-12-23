@@ -4,5 +4,5 @@
 
 | Book | Topic | Priority | Reason |
 |------|------|----------|--------|
-| NN & LLM | Foundations | High | Core LLM theory |
-| Jurafsky | NLP | Medium | Linguistic base |
+| NLP: NN & LLM | Foundations | High | Core LLM theory |
+
