@@ -14,3 +14,14 @@ foundations to systems, with a focus on models, data, evaluation, and applicatio
 - Support academic research
 - Enable high-quality teaching materials
 - Maintain long-term knowledge base
+
+## Repository Structure
+
+- foundations/ : linguistic and mathematical foundations
+- models/      : NLP models by paradigm
+- tasks/       : NLP tasks (NER, QA, MT, ...)
+- data/        : datasets and preprocessing
+- evaluation/  : metrics and benchmarks
+- systems/     : RAG, pipelines, deployment
+- github-projects/ : curated repositories
+- teaching/    : teaching and ESP materials
