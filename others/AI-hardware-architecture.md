@@ -91,19 +91,19 @@ Lưu ý để tận dụng tối đa tài nguyên google colab và tránh mất 
         checkpoint_path, 
         save_weights_only=True,
         period=1
-    )```
+    )
 - Tối ưu hóa sử dụng VRAM: sử dụng mixed precision training
     #Sử dụng mixed precision training, đặt đoạn code này trước khi định nghĩa mô hình
   
     ```from tensorflow.keras.mixed_precision import set_global_policy
-    set_global_policy('mixed_float16')```
+    set_global_policy('mixed_float16')
 - Giữ phiên hoạt động: chạy 1 cell nhỏ định kỳ. ví dụ tạo 1 cell và chạy nó mỗi 10-15p:
     ```import time
     from datetime import datetime
     
     while True:
         print("Colab vẫn đang hoạt động | Thời gian hiện tại:", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        time.sleep(600)  # 600 giây = 10 phút```
+        time.sleep(600)  # 600 giây = 10 phút
     
   lưu ý: Nếu đang train model, training itself đã đủ activity
         Cell này phù hợp khi: Chờ download, Chờ human-in-the-loop, Giữ session để debug
