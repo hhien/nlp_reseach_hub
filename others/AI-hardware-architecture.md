@@ -80,10 +80,10 @@ Lưu ý để tận dụng tối đa tài nguyên google colab và tránh mất 
     from google.colab import drive
     drive.mount('/content/drive')
 
-    # Lưu model checkpoints
+    #Lưu model checkpoints
     model.save('/content/drive/MyDrive/models/my_model.h5')
 - Sử dụng checkpoint thường xuyên:
-    # Lưu checkpoint mỗi epoch
+    #Lưu checkpoint mỗi epoch
     checkpoint_path = '/content/drive/MyDrive/checkpoints/epoch_{epoch}.ckpt'
     model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
         checkpoint_path, 
@@ -91,7 +91,7 @@ Lưu ý để tận dụng tối đa tài nguyên google colab và tránh mất 
         period=1
     )
 - Tối ưu hóa sử dụng VRAM: sử dụng mixed precision training
-    # Sử dụng mixed precision training, đặt đoạn code này trước khi định nghĩa mô hình
+    #Sử dụng mixed precision training, đặt đoạn code này trước khi định nghĩa mô hình
     from tensorflow.keras.mixed_precision import set_global_policy
     set_global_policy('mixed_float16')
 - Giữ phiên hoạt động: chạy 1 cell nhỏ định kỳ. ví dụ tạo 1 cell và chạy nó mỗi 10-15p:
