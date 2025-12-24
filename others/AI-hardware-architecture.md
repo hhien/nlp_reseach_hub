@@ -5,7 +5,7 @@
 - xử lý tuần tự, CPU hiện đại như intel Xeon, AMD EPYC có thể hỗ trợ tốt cho ìnference với mô hình nhỏ
 - k phù hợp cho các tác vụ yêu cầu xử lý song song. e.g: training
 
-GPU (graphcs processing unit):
+**GPU (graphcs processing unit):**
 - giống đội ngũ công nhân đông đảo và chuyên nghiệp
 - ưu điểm:
   + xử lý song song mạnh mẽ
@@ -21,7 +21,7 @@ NVIDIA A100	40/80 GB	6,912	250W	Enterprise training
 NVIDIA H100	80 GB	16,896	700W	Large-scale training
 AMD MI250X	128 GB	8,192	560W	HPC, Large models
 
-TPU (Tensor processing unit):
+**TPU (Tensor processing unit):**
 - giống đội chuyên gia được đào tạo đặc biệt cho 1 công việc cụ thể --> tối ưu hóa hoàn toàn cho các tác vụ AI
 - ưu điểm:
     + hiệu suất cao cho tensor operations: nhân ma trận, convolution
@@ -31,7 +31,7 @@ TPU (Tensor processing unit):
     + khả năng tiếp cận: TPU chủ yếu chỉ có sẵn qua Google Cloud Plàtorm
     + thiếu tính linh hoạt: TPU ít linh hoạt hơn GPU trong việc chạy các loại workload khác
 
-FPGA (fiel-programmarble gate array): là mạch tích hợp có thể được lập trình lại sau khi sản xuất, cho phép tùy chỉnh phần cứng theo nhu cầu cụ thể
+**FPGA (fiel-programmarble gate array): là mạch tích hợp có thể được lập trình lại sau khi sản xuất, cho phép tùy chỉnh phần cứng theo nhu cầu cụ thể**
 - ưu điểm;
     + tùy chỉnh cao
     + độ trễ thấp --> phù hợp cho các ứng dụng real-time
@@ -40,7 +40,7 @@ FPGA (fiel-programmarble gate array): là mạch tích hợp có thể được 
     + khó lập trình: y/c kiến thức về HDL: hardware description language
     + thời gian phát triển dài cho quá trình thiết kế và tối ưu hóa
 
-ASIC (application-specific integrated circuit): là mạch tích hợp được thiết kế riêng cho 1 ứng dụng cụ thể
+**ASIC (application-specific integrated circuit): là mạch tích hợp được thiết kế riêng cho 1 ứng dụng cụ thể**
 ví dụ: Google TPU, intel habana gaudi, Cerebras wafer-scale engine (chip AI lớn nhất tg)
 - ưu điểm:
     + hiệu suất cao nhất
@@ -48,7 +48,7 @@ ví dụ: Google TPU, intel habana gaudi, Cerebras wafer-scale engine (chip AI l
 - nhược điểm:
     + chi phí phát triển cao, chỉ phù hợp với quy mô lớn
  
-NPU (Neural processing Unit): là bộ xử lý chuyên dụng cho neural networks, thường được tích hợp trong mobile, edge devices
+**NPU (Neural processing Unit): là bộ xử lý chuyên dụng cho neural networks, thường được tích hợp trong mobile, edge devices**
 - phù hợp cho inference trên thiết bị di động
 - vi dụ: apple neural engine, qualcomm hexagon NPU, huawei ascend NPU
 
@@ -84,12 +84,28 @@ Lưu ý để tận dụng tối đa tài nguyên google colab và tránh mất 
     model.save('/content/drive/MyDrive/models/my_model.h5')
 - Sử dụng checkpoint thường xuyên:
     # Lưu checkpoint mỗi epoch
-checkpoint_path = '/content/drive/MyDrive/checkpoints/epoch_{epoch}.ckpt'
-model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
-    checkpoint_path, 
-    save_weights_only=True,
-    period=1
-)
+    checkpoint_path = '/content/drive/MyDrive/checkpoints/epoch_{epoch}.ckpt'
+    model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
+        checkpoint_path, 
+        save_weights_only=True,
+        period=1
+    )
+- Tối ưu hóa sử dụng VRAM: sử dụng mixed precision training
+    # Sử dụng mixed precision training, đặt đoạn code này trước khi định nghĩa mô hình
+    from tensorflow.keras.mixed_precision import set_global_policy
+    set_global_policy('mixed_float16')
+- Giữ phiên hoạt động: chạy 1 cell nhỏ định kỳ. ví dụ tạo 1 cell và chạy nó mỗi 10-15p:
+    import time
+    from datetime import datetime
+    
+    while True:
+        print("Colab vẫn đang hoạt động | Thời gian hiện tại:", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        time.sleep(600)  # 600 giây = 10 phút
+  lưu ý: Nếu đang train model, training itself đã đủ activity
+        Cell này phù hợp khi: Chờ download, Chờ human-in-the-loop, Giữ session để debug
 
-- 
- 
+**Giải pháp cho inference production:**
+- GPT ìnference server
+- TPU inference (Google cloud)
+- Edge AI với NPU
+
